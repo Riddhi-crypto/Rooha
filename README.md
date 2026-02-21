@@ -192,8 +192,8 @@ rooha/
 
 ## 📄 License
 
-MIT License
+
 
 ---
 
-Built with ❤️ by Riddhi Sahu
+built by Riddhi Sahu
