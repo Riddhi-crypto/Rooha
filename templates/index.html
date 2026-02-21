@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rooha — Feel the Music</title>
+<meta name="description" content="AI-powered emotion detection meets music. Rooha reads your mood through face or text and curates the perfect playlist.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<!-- Ambient Background -->
+<div class="ambient-bg" id="ambientBg">
+  <div class="gradient-orb orb-1"></div>
+  <div class="gradient-orb orb-2"></div>
+  <div class="gradient-orb orb-3"></div>
+  <div class="noise-overlay"></div>
+</div>
+
+<!-- Navigation -->
+<nav id="navbar">
+  <div class="nav-brand">
+    <div class="brand-icon">
+      <svg viewBox="0 0 40 40" width="36" height="36">
+        <defs>
+          <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#FF6B6B"/>
+            <stop offset="50%" style="stop-color:#C084FC"/>
+            <stop offset="100%" style="stop-color:#60A5FA"/>
+          </linearGradient>
+        </defs>
+        <circle cx="20" cy="20" r="18" fill="none" stroke="url(#brandGrad)" stroke-width="2.5"/>
+        <path d="M14 28V14l16 7-16 7z" fill="url(#brandGrad)" opacity="0.9"/>
+      </svg>
+    </div>
+    <span class="brand-text">rooha</span>
+  </div>
+  <div class="nav-links">
+    <a href="#" onclick="showPage('home')" class="nav-link active" data-page="home">Home</a>
+    <a href="#" onclick="showPage('detect')" class="nav-link" data-page="detect">Detect</a>
+    <a href="#" onclick="showPage('history')" class="nav-link" data-page="history">History</a>
+    <a href="#" onclick="showPage('about')" class="nav-link" data-page="about">About</a>
+  </div>
+  <div class="nav-right">
+    <div id="authSection"></div>
+    <div class="mobile-toggle" onclick="toggleMobile()">
+      <span class="material-icons-outlined">menu</span>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HOME PAGE ============ -->
+<section id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        AI-Powered Emotion × Music Engine
+      </div>
+      <h1 class="hero-title">
+        <span class="title-line">Your mood.</span>
+        <span class="title-line">Your <em class="gradient-em">music</em>.</span>
+        <span class="title-line">Your <em class="gradient-em-2">rooha</em>.</span>
+      </h1>
+      <p class="hero-desc">
+        Rooha detects your emotional state through facial expressions or written words,
+        then curates a personalised playlist from Spotify that matches exactly how you feel.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-hero" onclick="showPage('detect')">
+          <span class="material-icons-outlined">psychology</span>
+          Start Feeling
+        </button>
+        <button class="btn-hero-outline" onclick="showPage('about')">
+          How it Works
+          <span class="material-icons-outlined">arrow_forward</span>
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong>7</strong><span>Emotions</span></div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat"><strong>2</strong><span>Input Modes</span></div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat"><strong>∞</strong><span>Songs</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="emotion-wheel" id="emotionWheel">
+        <div class="wheel-center">
+          <span class="material-icons-outlined">favorite</span>
+        </div>
+        <div class="wheel-item wi-1" data-emotion="happy">😊</div>
+        <div class="wheel-item wi-2" data-emotion="sad">😢</div>
+        <div class="wheel-item wi-3" data-emotion="angry">😤</div>
+        <div class="wheel-item wi-4" data-emotion="surprise">😲</div>
+        <div class="wheel-item wi-5" data-emotion="fear">😰</div>
+        <div class="wheel-item wi-6" data-emotion="neutral">😐</div>
+        <div class="wheel-item wi-7" data-emotion="disgust">🤢</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="features-section">
+    <div class="section-header">
+      <span class="section-tag">Features</span>
+      <h2>Two paths to your perfect playlist</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card fc-face">
+        <div class="fc-icon"><span class="material-icons-outlined">face</span></div>
+        <h3>Facial Emotion Detection</h3>
+        <p>Our CNN-based computer vision pipeline reads your facial micro-expressions in real-time to determine your emotional state across 7 categories.</p>
+        <div class="fc-tags"><span>OpenCV</span><span>CNN</span><span>Real-time</span></div>
+      </div>
+      <div class="feature-card fc-text">
+        <div class="fc-icon"><span class="material-icons-outlined">edit_note</span></div>
+        <h3>Text Sentiment Analysis</h3>
+        <p>Write how you feel in natural language. Our NLP engine analyzes sentiment polarity, intensity, negation patterns, and emotion-specific keywords.</p>
+        <div class="fc-tags"><span>NLP</span><span>Sentiment</span><span>Keywords</span></div>
+      </div>
+      <div class="feature-card fc-spotify">
+        <div class="fc-icon"><span class="material-icons-outlined">library_music</span></div>
+        <h3>Spotify-Powered Playlists</h3>
+        <p>Detected emotions are mapped to mood profiles with valence-energy coordinates, then resolved to real tracks via the Spotify Web API.</p>
+        <div class="fc-tags"><span>Spotify API</span><span>Mood Map</span><span>Live</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DETECT PAGE ============ -->
+<section id="page-detect" class="page">
+  <div class="detect-container">
+    <!-- Mode Selection -->
+    <div id="modeSelect" class="mode-select">
+      <h2 class="detect-title">How are you feeling?</h2>
+      <p class="detect-sub">Choose how you'd like Rooha to understand your mood</p>
+      <div class="mode-cards">
+        <div class="mode-card" onclick="selectMode('text')">
+          <div class="mc-glow mc-glow-text"></div>
+          <span class="material-icons-outlined mc-icon">edit_note</span>
+          <h3>Write it out</h3>
+          <p>Type how you're feeling in your own words</p>
+        </div>
+        <div class="mode-card" onclick="selectMode('face')">
+          <div class="mc-glow mc-glow-face"></div>
+          <span class="material-icons-outlined mc-icon">photo_camera</span>
+          <h3>Show your face</h3>
+          <p>Let your camera capture your expression</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Text Input -->
+    <div id="textInput" class="input-panel" style="display:none">
+      <button class="back-btn" onclick="showModeSelect()">
+        <span class="material-icons-outlined">arrow_back</span> Back
+      </button>
+      <div class="text-input-wrapper">
+        <h2>Tell Rooha how you feel</h2>
+        <p>Write anything — a sentence, a paragraph, even a single word. Rooha will understand.</p>
+        <div class="text-area-container">
+          <textarea id="emotionText" placeholder="I'm feeling..." rows="5" maxlength="1000"></textarea>
+          <div class="char-count"><span id="charCount">0</span>/1000</div>
+        </div>
+        <div class="quick-moods">
+          <span onclick="setQuickMood('I feel really happy and excited today!')">😊 Happy</span>
+          <span onclick="setQuickMood('I am feeling sad and lonely right now')">😢 Sad</span>
+          <span onclick="setQuickMood('I am so angry and frustrated!')">😤 Angry</span>
+          <span onclick="setQuickMood('I feel calm and peaceful')">😌 Calm</span>
+          <span onclick="setQuickMood('I am scared and anxious about everything')">😰 Anxious</span>
+          <span onclick="setQuickMood('I am completely surprised and shocked!')">😲 Surprised</span>
+        </div>
+        <button class="btn-analyze" onclick="analyzeText()" id="analyzeTextBtn">
+          <span class="material-icons-outlined">psychology</span>
+          Analyze My Mood
+        </button>
+      </div>
+    </div>
+
+    <!-- Face Input -->
+    <div id="faceInput" class="input-panel" style="display:none">
+      <button class="back-btn" onclick="showModeSelect()">
+        <span class="material-icons-outlined">arrow_back</span> Back
+      </button>
+      <div class="face-input-wrapper">
+        <h2>Let Rooha see you</h2>
+        <p>Position your face in the frame and capture your expression</p>
+        <div class="camera-container">
+          <video id="cameraFeed" autoplay playsinline></video>
+          <canvas id="captureCanvas" style="display:none"></canvas>
+          <div class="camera-overlay">
+            <div class="face-guide"></div>
+          </div>
+          <div class="camera-status" id="cameraStatus">
+            <span class="material-icons-outlined">videocam</span> Initializing camera...
+          </div>
+        </div>
+        <div class="camera-actions">
+          <button class="btn-capture" onclick="capturePhoto()" id="captureBtn" disabled>
+            <div class="capture-ring"></div>
+            <span class="material-icons-outlined">photo_camera</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loadingState" class="loading-panel" style="display:none">
+      <div class="loader-visual">
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring delay-1"></div>
+        <div class="pulse-ring delay-2"></div>
+        <span class="material-icons-outlined loader-icon">psychology</span>
+      </div>
+      <h3>Analyzing your emotions...</h3>
+      <p class="loader-sub">Rooha is reading your feelings and curating the perfect playlist</p>
+    </div>
+
+    <!-- Results -->
+    <div id="resultsPanel" class="results-panel" style="display:none">
+      <button class="back-btn" onclick="resetDetection()">
+        <span class="material-icons-outlined">arrow_back</span> Try Again
+      </button>
+
+      <div class="result-emotion-card" id="emotionResultCard">
+        <div class="rec-emoji" id="resultEmoji">😊</div>
+        <div class="rec-info">
+          <div class="rec-label">Detected Emotion</div>
+          <h2 id="resultEmotion">Happy</h2>
+          <div class="rec-mood">Mood: <strong id="resultMood">Joyful</strong></div>
+          <div class="confidence-bar">
+            <div class="cb-label">Confidence</div>
+            <div class="cb-track"><div class="cb-fill" id="confidenceFill"></div></div>
+            <div class="cb-value" id="confidenceValue">78%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tracks-section">
+        <div class="tracks-header">
+          <h3><span class="material-icons-outlined">library_music</span> Your Mood Playlist</h3>
+          <span class="tracks-count" id="tracksCount">12 tracks</span>
+        </div>
+        <div class="tracks-grid" id="tracksGrid"></div>
+      </div>
+
+      <div class="feedback-section">
+        <p>Did this playlist match your mood?</p>
+        <div class="feedback-btns" id="feedbackBtns">
+          <button onclick="sendFeedback(5)" class="fb-btn fb-great">👍 Perfect</button>
+          <button onclick="sendFeedback(3)" class="fb-btn fb-ok">🤷 Okay</button>
+          <button onclick="sendFeedback(1)" class="fb-btn fb-bad">👎 Off</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HISTORY PAGE ============ -->
+<section id="page-history" class="page">
+  <div class="history-container">
+    <div class="section-header">
+      <span class="section-tag">History</span>
+      <h2>Your Emotional Journey</h2>
+    </div>
+    <div id="statsCards" class="stats-row"></div>
+    <div id="historyList" class="history-list"></div>
+  </div>
+</section>
+
+<!-- ============ ABOUT PAGE ============ -->
+<section id="page-about" class="page">
+  <div class="about-container">
+    <div class="section-header">
+      <span class="section-tag">About</span>
+      <h2>How Rooha Works</h2>
+    </div>
+
+    <div class="pipeline-visual">
+      <div class="pipe-step">
+        <div class="ps-num">01</div>
+        <div class="ps-icon"><span class="material-icons-outlined">input</span></div>
+        <h4>Input Capture</h4>
+        <p>Camera captures facial frame via MediaDevices API, or user types free-form text describing their feelings</p>
+      </div>
+      <div class="pipe-arrow"><span class="material-icons-outlined">arrow_forward</span></div>
+      <div class="pipe-step">
+        <div class="ps-num">02</div>
+        <div class="ps-icon"><span class="material-icons-outlined">psychology</span></div>
+        <h4>Emotion Detection</h4>
+        <p>Face → Haar Cascade detection → 48×48 grayscale → CNN classifier → 7-class probability. Text → tokenization → keyword + polarity analysis</p>
+      </div>
+      <div class="pipe-arrow"><span class="material-icons-outlined">arrow_forward</span></div>
+      <div class="pipe-step">
+        <div class="ps-num">03</div>
+        <div class="ps-icon"><span class="material-icons-outlined">tune</span></div>
+        <h4>Mood Translation</h4>
+        <p>Detected emotion maps to mood profile with valence range, energy range, and seed genres via hand-crafted lookup table</p>
+      </div>
+      <div class="pipe-arrow"><span class="material-icons-outlined">arrow_forward</span></div>
+      <div class="pipe-step">
+        <div class="ps-num">04</div>
+        <div class="ps-icon"><span class="material-icons-outlined">library_music</span></div>
+        <h4>Track Retrieval</h4>
+        <p>Mood-genre query dispatched to Spotify Web API → returns up to 12 tracks with artwork, preview clips, and direct play links</p>
+      </div>
+    </div>
+
+    <div class="tech-stack-section">
+      <h3>Technology Stack</h3>
+      <div class="tech-grid">
+        <div class="tech-item"><strong>Backend</strong><span>Python 3.10 + Flask</span></div>
+        <div class="tech-item"><strong>Face Detection</strong><span>OpenCV + Haar Cascade</span></div>
+        <div class="tech-item"><strong>CNN Model</strong><span>TensorFlow / Keras</span></div>
+        <div class="tech-item"><strong>NLP Engine</strong><span>Custom Sentiment Analyzer</span></div>
+        <div class="tech-item"><strong>Music API</strong><span>Spotify Web API</span></div>
+        <div class="tech-item"><strong>Database</strong><span>SQLite + SQLAlchemy</span></div>
+        <div class="tech-item"><strong>Frontend</strong><span>HTML5 + CSS3 + Vanilla JS</span></div>
+        <div class="tech-item"><strong>Deployment</strong><span>Render / Railway</span></div>
+      </div>
+    </div>
+
+    <div class="emotion-map-section">
+      <h3>Emotion → Mood → Genre Mapping</h3>
+      <div class="emotion-map-grid">
+        <div class="em-card em-happy"><div class="em-emoji">😊</div><h4>Happy</h4><div class="em-mood">Joyful</div><div class="em-genres">pop · dance · summer</div></div>
+        <div class="em-card em-sad"><div class="em-emoji">😢</div><h4>Sad</h4><div class="em-mood">Melancholic</div><div class="em-genres">acoustic · indie · piano</div></div>
+        <div class="em-card em-angry"><div class="em-emoji">😤</div><h4>Angry</h4><div class="em-mood">Intense</div><div class="em-genres">rock · metal · punk</div></div>
+        <div class="em-card em-fear"><div class="em-emoji">😰</div><h4>Fear</h4><div class="em-mood">Tense</div><div class="em-genres">ambient · soundtrack · classical</div></div>
+        <div class="em-card em-surprise"><div class="em-emoji">😲</div><h4>Surprise</h4><div class="em-mood">Energetic</div><div class="em-genres">edm · electro · party</div></div>
+        <div class="em-card em-disgust"><div class="em-emoji">🤢</div><h4>Disgust</h4><div class="em-mood">Brooding</div><div class="em-genres">blues · grunge · alt</div></div>
+        <div class="em-card em-neutral"><div class="em-emoji">😐</div><h4>Neutral</h4><div class="em-mood">Calm</div><div class="em-genres">chill · lo-fi · jazz</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Auth Modal -->
+<div class="modal-overlay" id="authModal">
+  <div class="auth-modal">
+    <span class="material-icons-outlined modal-close" onclick="closeModal('authModal')">close</span>
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchAuthTab('login')">Login</button>
+      <button class="auth-tab" onclick="switchAuthTab('register')">Register</button>
+    </div>
+    <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
+      <div class="form-group"><label>Email</label><input type="email" id="loginEmail" required></div>
+      <div class="form-group"><label>Password</label><input type="password" id="loginPassword" required></div>
+      <button type="submit" class="btn-analyze">Login</button>
+    </form>
+    <form id="registerForm" class="auth-form" style="display:none" onsubmit="handleRegister(event)">
+      <div class="form-group"><label>Username</label><input type="text" id="regUsername" required></div>
+      <div class="form-group"><label>Email</label><input type="email" id="regEmail" required></div>
+      <div class="form-group"><label>Password</label><input type="password" id="regPassword" required minlength="6"></div>
+      <button type="submit" class="btn-analyze">Create Account</button>
+    </form>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Audio Player -->
+<audio id="audioPlayer"></audio>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>
