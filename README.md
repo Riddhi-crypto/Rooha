@@ -181,7 +181,9 @@ rooha/
 ## Output Screenshots
 <img width="1908" height="896" alt="Screenshot 2026-03-09 210146" src="https://github.com/user-attachments/assets/0041a617-8317-4f32-940e-97a7b58779d3" />
 <img width="1899" height="873" alt="Screenshot 2026-03-09 210202" src="https://github.com/user-attachments/assets/eab7b003-ad55-4823-9da8-212a53c1b31a" />
-
+<img width="1912" height="801" alt="Screenshot 2026-03-09 210232" src="https://github.com/user-attachments/assets/a03bb7e5-ba38-4e15-ac7b-aeb2f7505a2a" />
+<img width="1900" height="899" alt="Screenshot 2026-03-09 210302" src="https://github.com/user-attachments/assets/8a82b596-1bdc-4e71-81fc-6ecc27220237" />
+<img width="1914" height="910" alt="Screenshot 2026-03-09 210454" src="https://github.com/user-attachments/assets/d7ae6f96-7a2c-4a28-a47a-37bf68765d38" />
 
 
 ## 🔮 Future Enhancements
